@@ -11,7 +11,7 @@
 {
     height:130vh;
     width: 100%;
-    background-image: url(image/mainpage1.0);
+    background-image: url(/image2.jpeg);
     background-size: cover;
     background-position:center;
     position: relative;
@@ -19,9 +19,9 @@
 }
 .navbar
 {  
-   width: 88%;
+   width: 98%;
    margin: auto;
-   padding: 15px 10px;
+   padding-top: 5px;
    display: flex;
    align-items: center;
    justify-content: space-between;
@@ -30,7 +30,6 @@
 }
 .logo
 {
-    font-size: 40px;
     color: rgba(107, 84, 177, 0.979);
     font-style: italic;
     font-weight: bolder;
@@ -47,23 +46,75 @@
     color: rgb(255, 255, 255);
     font-size: medium;
     font-weight:bolder;
-}
-
-.container a:hover {
-    color: rgb(197, 91, 79);
+    padding-right: 20px;
 }
 
 .container h1 {
     color: rgb(39, 37, 33);
-    margin: 10px 10px;
-    padding-top: 50px;
+    padding-top: 25px;
     text-align: center;
     font-family:Georgia, 'Times New Roman', Times, serif;
     opacity: 0.7;
 }
 
+.navbar img {
+    padding-left: 20px;
+}
+
+.navbar a:hover {
+    color:rgb(201, 110, 110);
+}
+
+.contact {
+    margin: auto;
+    overflow: auto;
+    padding: 0 20px;
+    max-width: 1500px;
+}
+
+.l-heading {
+    font-size: 40px;
+    padding-bottom: 15px;
+}
+
+.btn {
+    display: inline-block;
+    font-size: 18px;
+    color: whitesmoke;
+    background: #333333;
+    padding: 13px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    color: #333333;
+    background: rgb(201, 110, 110);
+}
+
 .clear {
     clear: both;
+}
+
+.contact p {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-size: 20px;
+}
+
+.box {
+    float: left;
+    width: 33.3%;
+    padding: 40px 0px;
+    text-align: center;
+}
+
+.box i {
+    margin-bottom: 10px;
+}
+
+.navbar a.current {
+    color: rgb(88, 107, 158);
 }
 
 #main-footer {
@@ -71,4 +122,162 @@
     text-align: center;
     padding: 20px;
     color: aliceblue;
+}
+
+#bg-dark {
+    background-color: rgb(48, 46, 46);
+    top: 0px;
+    width: 100%;
+    position: relative;
+    color: aliceblue;
+}
+
+#about {
+    background: rgb(66, 65, 62);
+    vertical-align: middle;
+    margin: auto;
+    line-height: 2em;
+    font-size: 20px;
+    background-image: url(/image4.png);
+    background-size: cover;
+    background-position:center;
+    position: relative;
+    width: 100%;
+    height: 83vh;
+    color:aliceblue
+}
+
+#about h1 {
+    padding: 50px 200px;
+    padding-bottom: 0px;
+}
+ 
+#about p {
+    width: 70%;
+    padding: 50px 200px;
+}
+
+#contact-form {
+    padding: 30px;
+    background-image: url(/image8.jpg);
+}
+
+#contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+#contact-form label {
+    margin-bottom: 5px;
+    display: block;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 99%;
+    padding: 10px;
+    border: 1px darkgrey solid;
+    opacity: 0.5;
+}
+
+#contact-form textarea {
+    height: 200px;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+    outline:rgb(223, 121, 121);
+    border-color:rgb(223, 121, 121);
+}
+
+.lobox {
+    width:300px;
+    padding:30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+
+}
+.lobox h1{
+
+  color: aliceblue;
+  text-transform: uppercase;
+  font-weight: 700;
+
+}
+
+.lobox input[type="text"],.lobox input[type="password"]
+{
+ border:0;
+ background: none;
+ display: block;
+ margin: 20px auto;
+ text-align: center;
+ border: 3px solid #90a9ce;
+ padding: 14px 10px;
+ width: 270px;
+ outline: none;
+ color: aliceblue;
+border-radius: 5px;
+transition: 0.25px;
+
+}
+
+.lobox input[type="text"],.lobox input[type="password"]:focus{
+
+width: 270px;
+border-color: #90a9ce;
+}
+
+.lobox a {
+    color: aliceblue;
+    text-decoration: none;
+}
+
+.lobox a:hover {
+    color: rgb(201, 110, 110);
+}
+
+.sobox {
+    width:100%;
+    position: absolute;
+    top: 5%;
+    text-align: center;
+}
+
+.sobox h1, .sobox p{
+
+    color: aliceblue;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 40px;
+  }
+
+  .sobox input[type="text"],.sobox input[type="password"]
+  {
+   border:0;
+   background: none;
+   display: inline-block;
+   margin: 20px auto;
+   text-align: center;
+   border: 3px solid #90a9ce;
+   padding: 14px 10px;
+   width: 300px;
+   color: aliceblue;
+    border-radius: 5px;
+    transition: 0.25px;
+    box-sizing: border-box;
+    overflow: auto;
+  }
+
+#login-bg {
+    background-image: url(/image10.jpg);
+    width: 100%;
+    height: 83vh;
+    background-size: cover;
+    background-position:center;
+    position: relative;
 }
