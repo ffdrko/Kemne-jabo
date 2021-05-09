@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kemne jabo! Profile</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="https://kit.fontawesome.com/cde6add5aa.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="navbar" id="bg-dark">
+        <a href="#"><img src="/image5.png" alt="logo" height="100px" class="logo" /></a>
+        <nav id="bottom">
+            <ul>
+                <li><i class="fas fa-bell"></i></li>
+                <span class="src-bar">
+                    <li><i class="fas fa-search">&nbsp;&nbsp;&nbsp;Search</i></li>
+                </span>
+                <span class="guide-bar hidden">
+                    <li>
+                        <i class="fas fa-directions">&nbsp;&nbsp;&nbsp;Contribute</i>
+                    </li>
+                </span>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="/index.html">Log Out</a> </li>
+                <li>
+                    <div id="switch">
+                        <input class="guide" type="checkbox" id="checkbox" onclick="myfunct()" />
+                        <label for="checkbox">a</label>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="profile">
+        <h1>Information</h1>
+        <p>Name:</p>
+        <p>Email:</p>
+        <p>Phone Number:</p>
+        <p>Location:</p>
+        <span class="point hidden">
+            <p>Point:</p>
+        </span>
+        <!--hidden class added-->
+        <span class="balance hidden">
+            <p>Balance:</p>
+        </span>
+        <span class="withdraw hidden"><button type="button" class="btn">Withdraw</button></span>
+        <!--hidden class added-->
+    </div>
+</body>
+
+<footer id="main-footer">
+    <p>kemne jabo! &copy; 2021 All rights reserved</p>
+</footer>
+
+<script src="/project.js"></script>
+
+</html>
