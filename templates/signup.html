@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kemne jabo! Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body ">
+    <div class=" navbar" id="bg-dark">
+    <a href="/"><img src="{{ url_for('static', filename='image5.png') }}" alt="logo" height="100px" class="logo"></a>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact us</a></li>
+            <li><a class="current" href="#">Sign up</a></li>
+            <li><a href="/login.html">Log in</a></li>
+        </ul>
+    </nav>
+    </div>
+    <div id="sign-bg">
+        <form class="sobox" action="{{ url_for('signup') }}" method="POST">
+            <span class="msg hidden" ></span> <h2>{{ msg }}</h2></span>
+            <h1>
+                Sign up
+            </h1>
+            <p>Information</p>
+            <input type="text" name="Email" placeholder="Email" id="username"> &nbsp; &nbsp;
+            <input type="text" name="First Name" placeholder="First Name" id="username"> &nbsp; &nbsp;
+            <input type="text" name="Last Name" placeholder="Last Name" id="username"> &nbsp;&nbsp;
+            <input type="text" name="Mobile" placeholder="Mobile" id="username"> &nbsp;&nbsp;
+            <p>Address</p>
+            <input type="text" name="House" placeholder="House" id="username"> &nbsp;&nbsp;
+            <input type="text" name="Street" placeholder="Street" id="username"> &nbsp;&nbsp;
+            <input type="text" name="Thana" placeholder="Thana" id="username"> &nbsp;&nbsp;
+            <input type="text" name="District" placeholder="District" id="username"> &nbsp;&nbsp;
+            <input type="text" name="Postal Code" placeholder="Postal Code" id="username"> &nbsp;&nbsp;
+            <p>Password</p>
+            <input type="password" name="Password" placeholder="Enter Password" id="password"> &nbsp;&nbsp;
+            <input type="password" name="Confirm" placeholder="Confirm Password" id="password"> &nbsp;&nbsp;
+            <p>Security Questions</p>
+            <div id="security">
+                <input type="text" name="Question" placeholder="Type your security question in case you forget your password"
+                    id="question"> &nbsp;&nbsp;
+                <input type="text" name="Answer" placeholder="Enter your answer" id="answer"> &nbsp;&nbsp;
+                <input type="text" name="Hint" placeholder="Enter your hint" id="hint"> &nbsp;&nbsp;
+                <br><br><br>
+                <button onclick="myfunct()" type="submit" class="btn">Register</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+<footer id="main-footer">
+    <p>kemne jabo! &copy; 2021 All rights reserved</p>
+</footer>
+
+<script src="/signup.js"></script>
+
+</html>
