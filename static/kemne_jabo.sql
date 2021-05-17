@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS information
 						FOREIGN KEY fk_user (user_id)
 						REFERENCES users (user_id)
 						ON DELETE CASCADE
-						ON UPDATE NO ACTION
+						ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS mediums
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS mediums
 						FOREIGN KEY fk_info (information_id)
 						REFERENCES information (information_id)
 						ON DELETE CASCADE
-						ON UPDATE NO ACTION
+						ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS taken_by
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS taken_by
 						FOREIGN KEY fk_user (user_id)
 						REFERENCES users (user_id)
 						ON DELETE CASCADE
-						ON UPDATE NO ACTION
+						ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS reports
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS reports
 				FOREIGN KEY fk_user (user_id)
 				REFERENCES users (user_id)
 				ON DELETE CASCADE
-				ON UPDATE NO ACTION
+				ON UPDATE CASCADE
 );
 
 INSERT INTO users VALUES (0, 'example@gmail.com', 'pass_word', 'no_fname', 'no_lname', '01234567891', 'no_ques', 'no_ans', 'no_hint', 0, 0, 0, 'no_street', 'no_house', 'no_thana', 'no_district', '0000')

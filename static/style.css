@@ -197,7 +197,7 @@
     width: 300px;
     padding: 30px;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -206,6 +206,7 @@
     color: aliceblue;
     text-transform: uppercase;
     font-weight: 700;
+    padding-top: 100px;
   }
   
   .lobox input[type="text"],
@@ -256,7 +257,7 @@
     padding-top: 40px;
   }
 
-  .sobox h2 {
+  .sobox h2, .lobox h2 {
     color: red;
     text-transform: uppercase;
     font-weight: 700;
@@ -293,7 +294,7 @@
   }
   
   #login-bg {
-    background-image: url(/image10.jpg);
+    background-image: url(/static/image10.jpg);
     width: 100%;
     height: 83vh;
     background-size: cover;
@@ -378,7 +379,7 @@
   
   #profile {
     line-height: 2em;
-    background-image: url(/image14.jpeg);
+    background-image: url(/static/image14.jpeg);
     width: 100%;
     height: 83vh;
     color: aliceblue;
