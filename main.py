@@ -1,3 +1,4 @@
+import MySQLdb
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import re
@@ -9,6 +10,8 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'database'
 app.config['MYSQL_DB'] = 'kemne_jabo'
+
+app.secret_key = 'kemne_jabo'
 
 
 @app.route('/')
@@ -46,13 +49,15 @@ def signup():
         ans = details['Answer']
         hint = details['Hint']
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM users WHERE email = %s", (email, ))
+        cur.execute("SELECT * FROM users WHERE email = %s", (email,))
         account1 = cur.fetchone()
-        cur.execute(f"SELECT * FROM users WHERE phone = %s", (mobile, ))
+        cur.execute("SELECT * FROM users WHERE phone = %s", (mobile,))
         account2 = cur.fetchone()
         if account1 or account2:
             msg = 'Account already exists! Try another email or mobile number!'
-        elif len(email) == 0 or len(fname) == 0 or len(lname) == 0 or len(mobile) == 0 or len(house) == 0 or len(street) == 0 or len(thana) == 0 or len(district) == 0 or len(p_code) == 0 or len(pw) == 0 or len(cpw) == 0 or len(ques) == 0 or len(ans) == 0 or len(hint) == 0:
+        elif len(email) == 0 or len(fname) == 0 or len(lname) == 0 or len(mobile) == 0 or len(house) == 0 or len(
+                street) == 0 or len(thana) == 0 or len(district) == 0 or len(p_code) == 0 or len(pw) == 0 or len(
+                cpw) == 0 or len(ques) == 0 or len(ans) == 0 or len(hint) == 0:
             msg = 'Please fill out the form!'
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             msg = 'Invalid email address!'
@@ -64,7 +69,10 @@ def signup():
             msg = 'Invalid post code!'
         elif pw == cpw:
             zero = 0
-            cur.execute("INSERT INTO users VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, NULL, NULL, NULL, %s, %s, %s, %s, %s, %s, %s, %s)", (email, pw, fname, lname, mobile, ques, ans, hint, zero, zero, zero, street, house, thana, district, p_code, ))
+            cur.execute(
+                "INSERT INTO users VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (
+                email, pw, fname, lname, mobile, ques, ans, hint, zero, zero, zero, street, house, thana, district,
+                p_code,))
             mysql.connection.commit()
             cur.close()
             msg = 'You have successfully registered! You can now log in!'
@@ -72,7 +80,44 @@ def signup():
             msg = "Please check if the 'Password' and 'Confirm Password' field is different. Those two fields must be equal."
     elif request.method == 'POST':
         msg = 'Please fill out the form!'
-    return render_template("signup.html", msg = msg)
+    return render_template("signup.html", msg=msg)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    details = request.form
+    msg = ""
+    if request.method == 'POST' and 'Email' in details and 'Password' in details:
+        email = details['Email']
+        pw = details['Password']
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute('SELECT * FROM users WHERE email = %s', (email,))
+        account = cur.fetchone()
+        if account:
+            cur.execute('SELECT * FROM users WHERE email = %s AND pass = %s', (email, pw,))
+            account = cur.fetchone()
+            if account:
+                session['loggedin'] = True
+                session['user_id'] = account['user_id']
+                session['email'] = account['email']
+                return render_template("profile.html")
+            else:
+                msg = 'Incorrect Password!'
+        else:
+            msg = 'Incorrect Email ID!'
+    return render_template("login.html", msg=msg)
+
+
+@app.route('/profile')
+def profile():
+    return render_template("profile.html")
+
+@app.route('/logout')
+def logout():
+    session.pop('loggedin', None)
+    session.pop('user_id', None)
+    session.pop('email', None)
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
