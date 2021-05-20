@@ -24,7 +24,9 @@
     </div>
     <div id="sign-bg">
         <form class="sobox" action="{{ url_for('signup') }}" method="POST">
-            <span class="msg hidden" ></span><h2>{{ msg }}</h2>
+            <span class="msg hidden"></span>
+                <h2>{{ msg }}</h2>
+            </span>
             <h1>
                 Sign up
             </h1>
@@ -49,7 +51,7 @@
                 <input type="text" name="Answer" placeholder="Enter your answer" id="answer"> &nbsp;&nbsp;
                 <input type="text" name="Hint" placeholder="Enter your hint" id="hint"> &nbsp;&nbsp;
                 <br><br><br>
-                <button onclick="myfunct()" type="submit" class="btn">Register</button>
+                <button onclick="myfunct2()" type="submit" class="btn">Register</button>
             </div>
         </form>
     </div>
@@ -60,6 +62,6 @@
     <p>kemne jabo! &copy; 2021 All rights reserved</p>
 </footer>
 
-<script src="/signup.js"></script>
+<script src="{{ url_for('static', filename='project.js') }}"></script>
 
 </html>
