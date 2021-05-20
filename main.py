@@ -100,7 +100,7 @@ def login():
                 session['loggedin'] = True
                 session['user_id'] = account['user_id']
                 session['email'] = account['email']
-                return render_template("profile.html")
+                return redirect(url_for('profile'))
             else:
                 msg = 'Incorrect Password!'
         else:
@@ -108,9 +108,23 @@ def login():
     return render_template("login.html", msg=msg)
 
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    return render_template("profile.html")
+    if 'user_id' in session:
+        id = session['user_id']
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute('SELECT * FROM users WHERE user_id = %s', (id,))
+        account = cur.fetchone()
+        who = account['first_name'] + "'s"
+        name = '    ' + account['first_name'] + ' ' + account['last_name']
+        email = '    ' + account['email']
+        phone = '    ' + account['phone']
+        address = '    ' + 'House: ' + account['house'] + ', Street: ' + account['street'] + ', ' + account['thana'] + ', ' + account['district'] + ', ' + account['postal_code'] + '.'
+        point = '    ' + str(account['points'])
+        balance = '    ' + str(account['money'])
+        return render_template('profile.html', who=who, name=name, email=email, phone=phone, address=address, point=point, balance=balance)
+    return render_template('profile.html')
+
 
 @app.route('/logout')
 def logout():

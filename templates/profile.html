@@ -28,8 +28,11 @@
                 <li><a href="/logout">Log Out</a> </li>
                 <li>
                     <div id="switch">
-                        <input class="guide" type="checkbox" id="checkbox" onclick="myfunct()" />
+<!--                        <button onclick="myfunct()" type="submit" ></button>-->
+<!--                        <form action="{{ url_for('profile') }}" method="POST">-->
+                        <input class="guide" name="checkbox" type="checkbox" id="checkbox" value="1" onclick="myfunct1()" />
                         <label for="checkbox">a</label>
+<!--                        </form>-->
                     </div>
                 </li>
             </ul>
@@ -37,17 +40,17 @@
     </div>
 
     <div id="profile">
-        <h1>Information</h1>
-        <p>Name:</p>
-        <p>Email:</p>
-        <p>Phone Number:</p>
-        <p>Location:</p>
+        <h1> {{ who }} Information</h1>
+        <p>Name: {{ name }} </p>
+        <p>Email: {{ email }} </p>
+        <p>Phone Number: {{ phone }} </p>
+        <p>Location: {{ address }} </p>
         <span class="point hidden">
-            <p>Point:</p>
+            <p>Point: {{ point }} </p>
         </span>
         <!--hidden class added-->
         <span class="balance hidden">
-            <p>Balance:</p>
+            <p>Balance: {{ balance }} </p>
         </span>
         <span class="withdraw hidden"><button type="button" class="btn">Withdraw</button></span>
         <!--hidden class added-->
@@ -58,6 +61,6 @@
     <p>kemne jabo! &copy; 2021 All rights reserved</p>
 </footer>
 
-<script src="/project.js"></script>
+<script src="{{ url_for('static', filename='project.js') }}"></script>
 
 </html>

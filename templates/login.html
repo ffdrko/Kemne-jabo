@@ -24,7 +24,9 @@
     </div>
     <div id="login-bg">
         <form class=" lobox" action="{{ url_for('login') }}" method="POST">
-            <span class="msg hidden" ></span><h2>{{ msg }}</h2></span>
+            <span class="msg hidden"></span>
+                <h2 >{{ msg }}</h2>
+            </span>
             <h1>
                 Log in
             </h1>
@@ -32,7 +34,7 @@
             <input type="text" name="Email" placeholder="Enter Username" id="Email">
             <input type="password" name="Password" placeholder="Enter Password" id="Password">
             <!-- <button type="submit" class="btn">Login</button> -->
-            <button onclick="myfunct()" type="submit" class="btn">Submit</button>
+            <button onclick="myfunct2()" type="submit" class="btn">Submit</button>
             <br> <br> <br>
             <a id="fgpw" href="/login">Forgot your password?</a>
         </form>
@@ -44,6 +46,6 @@
     <p>kemne jabo! &copy; 2021 All rights reserved</p>
 </footer>
 
-<script src="/signup.js"></script>
+<script src="{{ url_for('static', filename='project.js') }}"></script>
 
 </html>

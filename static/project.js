@@ -5,8 +5,9 @@ const click_search = document.querySelector(".click-search");
 const click_guide = document.querySelector(".click-guide");
 const src_bar = document.querySelector(".src-bar");
 const gd_bar = document.querySelector(".guide-bar");
+const msg = document.querySelector(".msg");
 
-function myfunct() {
+function myfunct1() {
     if (
         point.classList.contains("hidden") &&
         balance.classList.contains("hidden") &&
@@ -25,5 +26,14 @@ function myfunct() {
         withdraw.classList.add("hidden");
         gd_bar.classList.add("hidden");
         src_bar.classList.remove("hidden");
+    }
+}
+
+function myfunct2() {
+    if ( msg.classList.contains("hidden") ) {
+        msg.classList.remove("hidden");
+    }
+    else {
+        msg.classList.add("hidden");
     }
 }
