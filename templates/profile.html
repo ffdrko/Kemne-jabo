@@ -24,7 +24,7 @@
                         <i class="fas fa-directions">&nbsp;&nbsp;&nbsp;Contribute</i>
                     </li>
                 </span>
-                <li><a href="#">FAQ</a></li>
+                <li><a href="/report">Report</a></li>
                 <li><a href="/logout">Log Out</a> </li>
                 <li>
                     <div id="switch">
@@ -40,7 +40,8 @@
     </div>
 
     <div id="profile">
-        <h1> {{ who }} Information</h1>
+        <div class="inside">
+            <h1> {{ who }} Information</h1>
         <p>Name: {{ name }} </p>
         <p>Email: {{ email }} </p>
         <p>Phone Number: {{ phone }} </p>
@@ -54,6 +55,7 @@
         </span>
         <span class="withdraw hidden"><button type="button" class="btn">Withdraw</button></span>
         <!--hidden class added-->
+        </div>
     </div>
 </body>
 
