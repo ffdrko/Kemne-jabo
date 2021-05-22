@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS reports
 (
 	report_id 	BIGINT PRIMARY KEY AUTO_INCREMENT,
     message 	VARCHAR(2500) NOT NULL,
-    feedback 	VARCHAR(2500) NOT NULL, 
+    feedback 	VARCHAR(2500), 
     is_FAQ 		BOOLEAN DEFAULT 0,
     user_id 	BIGINT NOT NULL,
 				FOREIGN KEY fk_user (user_id)
@@ -86,4 +86,14 @@ CREATE TABLE IF NOT EXISTS reports
 				ON UPDATE CASCADE
 );
 
-INSERT INTO users VALUES (0, 'example@gmail.com', 'pass_word', 'no_fname', 'no_lname', '01234567891', 'no_ques', 'no_ans', 'no_hint', 0, 0, 0, 'no_street', 'no_house', 'no_thana', 'no_district', '0000')
+CREATE TABLE IF NOT EXISTS admins
+(
+	email VARCHAR(300) PRIMARY KEY NOT NULL UNIQUE,
+    pass VARCHAR(100) NOT NULL
+);
+
+INSERT INTO users VALUES (NULL, 'example@gmail.com', 'pass_word', 'no_fname', 'no_lname', '01234567891', 'no_ques', 'no_ans', 'no_hint', 0, 0, 0, 'no_street', 'no_house', 'no_thana', 'no_district', '0000');
+INSERT INTO admins VALUES ('justchillbro1234@gmail.com', 'admin1234');
+INSERT INTO reports VALUES (NULL, 'How do I register?', 'Please go to sign up and fill out all the informations to register', 1, 1);
+INSERT INTO reports VALUES (NULL, 'How do I login?', 'Please go to login and put your email and password to login. If it says account does not exist, please go to sign up and fill out all the informations to register', 1, 1);
+INSERT INTO reports VALUES (NULL, 'What do I do if I forget my password?', 'Please go to login and then click on forgot my password. Then answer your security question and set a new password', 1, 1); 
