@@ -257,7 +257,7 @@
     padding-top: 40px;
   }
 
-  .sobox h2, .lobox h2 {
+  .sobox h2, .lobox h2, #contact-form h2 {
     text-shadow: 2px 2px 5px red;
     padding: 5px;
     color: aliceblue;

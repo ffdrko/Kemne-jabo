@@ -24,11 +24,6 @@ def about():
     return render_template("about.html")
 
 
-@app.route('/contact')
-def contact():
-    return render_template("contact.html")
-
-
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     details = request.form
@@ -55,9 +50,7 @@ def signup():
         account2 = cur.fetchone()
         if account1 or account2:
             msg = 'Account already exists! Try another email or mobile number!'
-        elif len(email) == 0 or len(fname) == 0 or len(lname) == 0 or len(mobile) == 0 or len(house) == 0 or len(
-                street) == 0 or len(thana) == 0 or len(district) == 0 or len(p_code) == 0 or len(pw) == 0 or len(
-                cpw) == 0 or len(ques) == 0 or len(ans) == 0 or len(hint) == 0:
+        elif len(email) == 0 or len(fname) == 0 or len(lname) == 0 or len(mobile) == 0 or len(house) == 0 or len(street) == 0 or len(thana) == 0 or len(district) == 0 or len(p_code) == 0 or len(pw) == 0 or len(cpw) == 0 or len(ques) == 0 or len(ans) == 0 or len(hint) == 0:
             msg = 'Please fill out the form!'
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             msg = 'Invalid email address!'
@@ -70,9 +63,7 @@ def signup():
         elif pw == cpw:
             zero = 0
             cur.execute(
-                "INSERT INTO users VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (
-                email, pw, fname, lname, mobile, ques, ans, hint, zero, zero, zero, street, house, thana, district,
-                p_code,))
+                "INSERT INTO users VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (email, pw, fname, lname, mobile, ques, ans, hint, zero, zero, zero, street, house, thana, district,p_code,))
             mysql.connection.commit()
             cur.close()
             msg = 'You have successfully registered! You can now log in!'
@@ -132,6 +123,73 @@ def logout():
     session.pop('user_id', None)
     session.pop('email', None)
     return redirect(url_for('index'))
+
+
+@app.route('/faq')
+def faq():
+    one = 1
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute('SELECT * FROM reports WHERE is_FAQ = %s', (one,))
+    info = cur.fetchall()
+    return render_template('faq.html', info=info)
+
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    details = request.form
+    msg = ""
+    if request.method == "POST":
+        name = details['name']
+        email = details['email']
+        message = details['message']
+        if len(name) == 0 or len(email) == 0 or len(message) == 0:
+            msg = 'Please fill out the form!'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            msg = 'Invalid email address!'
+        else:
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute("SELECT * FROM users WHERE email = %s", (email, ))
+            account = cur.fetchone()
+            zero = 0
+            one = 1
+            cur = mysql.connection.cursor()
+            if account:
+                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s)", (message, zero, account['user_id']))
+            else:
+                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s)", (message, zero, one))
+            msg = 'We have got your message. We will reply soon. Thank you!'
+            mysql.connection.commit()
+            cur.close()
+    return render_template('contact.html', msg=msg)
+
+
+@app.route('/report', methods=['GET', 'POST'])
+def report():
+    details = request.form
+    msg = ""
+    if request.method == "POST":
+        name = details['name']
+        email = details['email']
+        message = details['message']
+        if len(name) == 0 or len(email) == 0 or len(message) == 0:
+            msg = 'Please fill out the form!'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            msg = 'Invalid email address!'
+        else:
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute("SELECT * FROM users WHERE email = %s", (email, ))
+            account = cur.fetchone()
+            zero = 0
+            one = 1
+            cur = mysql.connection.cursor()
+            if account:
+                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s)", (message, zero, account['user_id']))
+            else:
+                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s)", (message, zero, one))
+            msg = 'We have got your message. We will reply soon. Thank you!'
+            mysql.connection.commit()
+            cur.close()
+    return render_template('report.html', msg=msg)
 
 
 if __name__ == '__main__':

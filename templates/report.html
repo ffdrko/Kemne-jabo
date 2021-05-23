@@ -24,9 +24,12 @@
     </div>
     <section id="contact-form">
         <div class="contact">
-            <h1 class="l-heading"> Report</h1>
+            <h1 class="l-heading"> Contact Us</h1>
             <p>Please fill out the form below to contact us</p>
-            <form action="  ">
+            <form action="{{ url_for('report') }}" method="POST">
+                <span class="msg hidden"></span>
+                    <h2>{{ msg }}</h2>
+                </span>
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" name="name" id="name">
@@ -39,7 +42,7 @@
                     <label for="message">Message</label>
                     <textarea name="message" id="message"></textarea>
                 </div>
-                <button class="btn"> Submit</button>
+                <button class="btn" onclick="myfunct2()"> Submit</button>
             </form>
         </div>
     </section>
@@ -61,7 +64,7 @@
                 <i class="fas fa-envelope fa-3x"></i>
                 <h3>Email</h3>
                 <br>
-                <p>abc@def.com</p>
+                <p>justchillbro1234@gmail.com</p>
             </div>
         </div>
     </section>
@@ -70,5 +73,7 @@
 <footer id="main-footer">
     <p>kemne jabo! &copy; 2021 All rights reserved</p>
 </footer>
+
+<script src="{{ url_for('static', filename='project.js') }}"></script>
 
 </html>
