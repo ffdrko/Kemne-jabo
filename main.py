@@ -154,9 +154,9 @@ def contact():
             one = 1
             cur = mysql.connection.cursor()
             if account:
-                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s)", (message, zero, account['user_id']))
+                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s, %s)", (message, zero, zero, account['user_id']))
             else:
-                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s)", (message, zero, one))
+                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s, %s)", (message, zero, zero, one))
             msg = 'We have got your message. We will reply soon. Thank you!'
             mysql.connection.commit()
             cur.close()
@@ -183,9 +183,9 @@ def report():
             one = 1
             cur = mysql.connection.cursor()
             if account:
-                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s)", (message, zero, account['user_id']))
+                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s, %s)", (message, zero, zero, account['user_id']))
             else:
-                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s)", (message, zero, one))
+                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s, %s)", (message, zero, zero, one))
             msg = 'We have got your message. We will reply soon. Thank you!'
             mysql.connection.commit()
             cur.close()
