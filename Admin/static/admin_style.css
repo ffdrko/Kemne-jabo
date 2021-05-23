@@ -1,0 +1,289 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }
+  .hidden {
+    display: none;
+  }
+
+  .container {
+    height: 130vh;
+    width: 100%;
+    background:aliceblue;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .logo {
+    color: rgba(107, 84, 177, 0.979);
+    font-style: italic;
+    font-weight: bolder;
+  }
+  .btn {
+    display: inline-block;
+    font-size: 18px;
+    color: whitesmoke;
+    background: #333333;
+    padding: 13px 20px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    color: #333333;
+    background: rgb(201, 110, 110);
+  }
+  .navbar {
+    width: 98%;
+    margin: auto;
+    padding-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 10px;
+  }
+
+  .navbar img {
+    padding-left: 20px;
+  }
+
+  .navbar ul li {
+    list-style: none;
+    display: inline;
+    margin: 0 15px;
+  }
+  .navbar ul li a,
+  .navbar ul li i,
+  .navbar ul li div {
+    display: inline-block;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: medium;
+    font-weight: bolder;
+    padding-right: 20px;
+  }
+
+
+  .navbar a:hover {
+    color: rgb(201, 110, 110);
+  }
+
+
+  #main-footer {
+    background: #444444;
+    text-align: center;
+    padding: 20px;
+    color: aliceblue;
+  }
+  #bg-dark {
+    background-color: rgb(48, 46, 46);
+    top: 0px;
+    width: 100%;
+    position: relative;
+    color: aliceblue;
+  }
+  #profile {
+    background-color: #90a9ce;
+    padding: 20px;
+    line-height: 2em;
+    min-height: 79vh;
+    font-weight: bolder;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  #profile h1 {
+    padding: 20px 30px;
+    padding-top: 40px;
+  }
+
+#profile h2 {
+    text-shadow: 2px 2px 5px red;
+    padding: 20px;
+    color: aliceblue;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  #profile p {
+    margin: 10px;
+    padding: 20px;
+    font-size: 20px;
+    padding-left: 0;
+  }
+
+  #profile button {
+    margin: 20px;
+    padding: 10px;
+  }
+
+  #login-bg {
+    background-color: #90a9ce;
+    width: 100%;
+    height: 83vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+
+  .lobox {
+    width: 300px;
+    padding: 30px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .lobox h1 {
+    color:#333333;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .lobox input[type="text"],
+  .lobox input[type="password"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 3px solid #444;
+    padding: 14px 10px;
+    width: 270px;
+    outline: none;
+    color: #333333;
+    border-radius: 5px;
+    transition: 0.25px;
+  }
+
+  .lobox input[type="text"],
+  .lobox input[type="password"]:focus {
+    width: 270px;
+    border-color: #444;
+  }
+
+  .lobox a {
+    color: aliceblue;
+    text-decoration: none;
+  }
+
+  .lobox ::placeholder {
+    color: #333333;
+    opacity: 0.7;
+  }
+
+  .lobox h2 {
+    text-shadow: 2px 2px 5px red;
+    padding: 5px;
+    color: aliceblue;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    padding-bottom: 100px;
+  }
+
+ .msg-box {
+    padding: 20px;
+    font-size: 20px;
+    list-style-type: none;
+ }
+
+ .msg-box a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+ }
+
+  .msg-box a:hover {
+    color: firebrick;
+  }
+
+ #text {
+    margin-bottom: 20px;
+ }
+
+ .msg{
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  #text textarea {
+    width: 99%;
+    padding: 10px;
+    border: 1px darkgrey solid;
+    opacity: 0.5;
+  }
+
+  #text textarea {
+    height: 200px;
+  }
+
+  #text input:focus,
+  #text textarea:focus {
+    outline: #333;
+    border-color: #333;
+  }
+
+.cont {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 20px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.cont input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+.cont:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.cont input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.cont input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.cont .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

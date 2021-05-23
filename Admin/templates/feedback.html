@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kemne jabo! Admin Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_style.css') }}">
+</head>
+
+<body>
+    <div class=" navbar" id="bg-dark">
+        <a href="/feedback/{{ account['report_id'] }}"><img src="{{ url_for('static', filename='image5.png') }}" alt="logo" height="100px" class="logo"></a>
+        <nav>
+            <ul>
+                <li><a href="/admin_logout">Log out</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="profile">
+        <h1>Message</h1>
+        <div class="msg-box">
+            <p> {{ account['message'] }} </p>
+            <form id="text" action="/feedback/{{ account['report_id'] }}" method="POST">
+                <label class="msg" for="message">Feedback</label>
+                <textarea name="message" id="message"></textarea>
+                <label class="cont"> Add to FAQ
+                    <input type="checkbox" name="faq" value="checked">
+                    <span class="checkmark"></span>
+                </label>
+                <button type="submit" class="btn">Give Feedback</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+<footer id="main-footer">
+    <p>kemne jabo! &copy; 2021 All rights reserved</p>
+</footer>
+
+</html>
