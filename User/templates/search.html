@@ -6,41 +6,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>kemne jabo! About</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://kit.fontawesome.com/cde6add5aa.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <div class="navbar" id="bg-dark">
-        <a href="#"><img src="/image5.png" alt="logo" height="100px" class="logo"></a>
-             <nav id="bottom">
+        <a href="/profile"><img src="{{ url_for('static', filename='image5.png') }}" alt="logo" height="100px" class="logo"></a>
+        <nav>
             <ul>
                 <li><i class="fas fa-bell"></i></li>
-                <span class="src-bar">
-                    <li><i class="fas fa-search">&nbsp;&nbsp;&nbsp;Search</i></li>
-                </span>
-                <span class="guide-bar hidden">
-                    <li>
-                        <i class="fas fa-directions">&nbsp;&nbsp;&nbsp;Contribute</i>
-                    </li>
-                </span>
-                <li><a href="/faq.html">FAQ</a></li>
-                <li><a href="/index.html">Log Out</a> </li>
-
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/report">Help</a></li>
+                <li><a href="/logout">Log Out</a> </li>
             </ul>
         </nav>
     </div>
 
     </div>
     <div id="search-bg">
-        <form class=" lobox" action="login.html" method="POST">
+        <form class="sobox" action="{{ url_for('search') }}" method="POST">
+            <span class="msg hidden"></span>
+                <h2>{{ msg }}</h2>
+            </span>
             <h1>
-                kemne jabo
+                kemne jabo?
             </h1>
             <br>
-            <input type="text" name="" placeholder="From" id="username">
-            <input type="text" name="" placeholder="To" id="username">
-            <button type="submit" class="btn">Khujo</button>     
+            <input type="text" name="start" placeholder="From">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="end" placeholder="To">
+            <br><br>
+            <button type="submit" class="btn">Khujo</button>
         </form>
     </div>
 </body>
@@ -49,6 +46,6 @@
     <p>kemne jabo! &copy; 2021 All rights reserved</p>
 </footer>
 
-
+<script src="{{ url_for('static', filename='project.js') }}"></script>
 
 </html>
