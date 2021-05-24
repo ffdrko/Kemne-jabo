@@ -294,6 +294,12 @@
     padding: 20px;
     width: 500px;
   }
+
+  #security p {
+    text-transform:none;
+    text-shadow: 1px 1px 1px red;
+    font-size: 20px;
+  }
   
   #login-bg {
     background-image: url(/static/image10.jpg);
@@ -314,7 +320,7 @@
   }
   
   #forgot-bg {
-    background-image: url(/image12.jpg);
+    background-image: url(/static/image12.jpg);
     width: 100%;
     height: 83vh;
     background-size: cover;
@@ -408,8 +414,8 @@
     margin: 20px;
     padding: 10px;
   }
-   #search-bg {
-    background-image: url(/image15.jpg);
+#search-bg {
+    background-color: rgb(201, 196, 196);
     width: 100%;
     height: 83vh;
     background-size: cover;
@@ -417,10 +423,17 @@
     position: relative;
   }
   #search-bg h1 {
-
+    padding-top: 200px;
     color: black;
   }
 
+  #search-bg input[type="text"] {
+    color: #333333;
+  }
+
+  #search-bg ::placeholder {
+    color: #333333;
+  }
   #faq-bg{
     background-color: rgb(201, 196, 196)    ;
     padding: 20px;

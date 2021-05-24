@@ -50,7 +50,9 @@ def signup():
         account2 = cur.fetchone()
         if account1 or account2:
             msg = 'Account already exists! Try another email or mobile number!'
-        elif len(email) == 0 or len(fname) == 0 or len(lname) == 0 or len(mobile) == 0 or len(house) == 0 or len(street) == 0 or len(thana) == 0 or len(district) == 0 or len(p_code) == 0 or len(pw) == 0 or len(cpw) == 0 or len(ques) == 0 or len(ans) == 0 or len(hint) == 0:
+        elif len(email) == 0 or len(fname) == 0 or len(lname) == 0 or len(mobile) == 0 or len(house) == 0 or len(
+                street) == 0 or len(thana) == 0 or len(district) == 0 or len(p_code) == 0 or len(pw) == 0 or len(
+            cpw) == 0 or len(ques) == 0 or len(ans) == 0 or len(hint) == 0:
             msg = 'Please fill out the form!'
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             msg = 'Invalid email address!'
@@ -63,7 +65,9 @@ def signup():
         elif pw == cpw:
             zero = 0
             cur.execute(
-                "INSERT INTO users VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (email, pw, fname, lname, mobile, ques, ans, hint, zero, zero, zero, street, house, thana, district,p_code,))
+                "INSERT INTO users VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (
+                    email, pw, fname, lname, mobile, ques, ans, hint, zero, zero, zero, street, house, thana, district,
+                    p_code,))
             mysql.connection.commit()
             cur.close()
             msg = 'You have successfully registered! You can now log in!'
@@ -110,10 +114,12 @@ def profile():
         name = '    ' + account['first_name'] + ' ' + account['last_name']
         email = '    ' + account['email']
         phone = '    ' + account['phone']
-        address = '    ' + 'House: ' + account['house'] + ', Street: ' + account['street'] + ', ' + account['thana'] + ', ' + account['district'] + ', ' + account['postal_code'] + '.'
+        address = '    ' + 'House: ' + account['house'] + ', Street: ' + account['street'] + ', ' + account[
+            'thana'] + ', ' + account['district'] + ', ' + account['postal_code'] + '.'
         point = '    ' + str(account['points'])
         balance = '    ' + str(account['money'])
-        return render_template('profile.html', who=who, name=name, email=email, phone=phone, address=address, point=point, balance=balance)
+        return render_template('profile.html', who=who, name=name, email=email, phone=phone, address=address,
+                               point=point, balance=balance)
     return render_template('profile.html')
 
 
@@ -148,13 +154,14 @@ def contact():
             msg = 'Invalid email address!'
         else:
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cur.execute("SELECT * FROM users WHERE email = %s", (email, ))
+            cur.execute("SELECT * FROM users WHERE email = %s", (email,))
             account = cur.fetchone()
             zero = 0
             one = 1
             cur = mysql.connection.cursor()
             if account:
-                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s, %s)", (message, zero, zero, account['user_id']))
+                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s, %s)",
+                            (message, zero, zero, account['user_id']))
             else:
                 cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s, %s)", (message, zero, zero, one))
             msg = 'We have got your message. We will reply soon. Thank you!'
@@ -177,19 +184,80 @@ def report():
             msg = 'Invalid email address!'
         else:
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cur.execute("SELECT * FROM users WHERE email = %s", (email, ))
+            cur.execute("SELECT * FROM users WHERE email = %s", (email,))
             account = cur.fetchone()
             zero = 0
             one = 1
             cur = mysql.connection.cursor()
             if account:
-                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s, %s)", (message, zero, zero, account['user_id']))
+                cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s, %s)",
+                            (message, zero, zero, account['user_id']))
             else:
                 cur.execute("INSERT INTO reports VALUES (NULL, %s, NULL, %s, %s, %s)", (message, zero, zero, one))
             msg = 'We have got your message. We will reply soon. Thank you!'
             mysql.connection.commit()
             cur.close()
     return render_template('report.html', msg=msg)
+
+
+@app.route('/forgotpw', methods=['GET', 'POST'])
+def forgotpw():
+    details = request.form
+    msg = ""
+    if request.method == 'POST':
+        email = details['Email']
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute("SELECT * FROM users WHERE email = %s", (email,))
+        account = cur.fetchone()
+        if account:
+            idd = account['user_id']
+            return redirect(url_for('recover', idd=idd))
+        else:
+            msg = 'No such account exists. Please enter a valid Email ID!'
+    return render_template("forgotpw.html", msg=msg)
+
+
+@app.route('/recover/<idd>', methods=['GET', 'POST'])
+def recover(idd):
+    details = request.form
+    msg = ""
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT * FROM users WHERE user_id = %s", (idd,))
+    account = cur.fetchone()
+    email = '    ' + account['email']
+    ques = '    ' + account['question']
+    ans1 = account['answer']
+    hint = '    ' + account['hint'] + '.'
+    ppw = account['pass']
+    if request.method == 'POST':
+        ans2 = details['answer']
+        pw = details['Password']
+        cpw = details['Confirm']
+        ans1 = ans1.lstrip()
+        ans2 = ans2.lstrip()
+        ans1 = ans1.rstrip()
+        ans2 = ans2.rstrip()
+        ans1 = ans1.lower()
+        ans2 = ans2.lower()
+        if len(ans2) == 0:
+            msg = 'Please enter your answer!'
+        elif len(pw) < 8:
+            msg = "Password's length must be at least 8!"
+        elif ans1 == ans2:
+            if pw == cpw:
+                if pw == ppw:
+                    msg = 'New password cannot be same as previous password. Try again!'
+                else:
+                    cur = mysql.connection.cursor()
+                    cur.execute("UPDATE users SET pass = %s WHERE user_id = %s", (pw, idd,))
+                    mysql.connection.commit()
+                    cur.close()
+                    msg = 'Password changed successfully. You can now login!'
+            else:
+                msg = "Please check if the 'Password' and 'Confirm Password' field is different. Those two fields must be equal."
+        else:
+            msg = 'Your answer is wrong. Try again!'
+    return render_template("recover.html", idd=idd, email=email, ques=ques, hint=hint, msg=msg)
 
 
 if __name__ == '__main__':
