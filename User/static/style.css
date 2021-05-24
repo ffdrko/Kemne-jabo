@@ -46,6 +46,10 @@
     font-weight: bolder;
     padding-right: 20px;
   }
+
+  .navbar ul li a i {
+    padding-right:0;
+  }
   
   .container h1 {
     color: rgb(39, 37, 33);
@@ -415,7 +419,7 @@
     padding: 10px;
   }
 #search-bg {
-    background-color: rgb(201, 196, 196);
+    background-image: url(/static/image13.jpg);
     width: 100%;
     height: 83vh;
     background-size: cover;
@@ -424,16 +428,25 @@
   }
   #search-bg h1 {
     padding-top: 200px;
-    color: black;
+    color: aliceblue;
   }
 
   #search-bg input[type="text"] {
-    color: #333333;
+    color: aliceblue;
+    font-weight: bold;
   }
 
-  #search-bg ::placeholder {
+#search-bg .btn {
+    background-color:#90a9ce;
+    color: firebrick;
+    font-weight: bolder;
+}
+
+#search-bg .btn:hover {
     color: #333333;
-  }
+    background: rgb(201, 110, 110);
+}
+
   #faq-bg{
     background-color: rgb(201, 196, 196)    ;
     padding: 20px;
@@ -446,10 +459,26 @@
     text-shadow: 1px 1px 2px aliceblue;
   }
 
-  #faq-bg h1 {
+  #faq-bg h1, #faq-bg h2 {
     padding: 20px;
+  }
+  #faq-bg h1 {
+    text-decoration: underline;
   }
 
   #faq-bg .faq-box {
     font-size: 20px;
+  }
+
+  #query {
+    padding: 20px;
+  }
+
+  .inf {
+    width: 70%;
+    border: 2px solid #333;
+  }
+
+  #search-bg .kom {
+    padding-top: 120px;
   }

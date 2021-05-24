@@ -260,5 +260,51 @@ def recover(idd):
     return render_template("recover.html", idd=idd, email=email, ques=ques, hint=hint, msg=msg)
 
 
+@app.route('/contribute', methods=['GET', 'POST'])
+def contribute():
+    details = request.form
+    msg = ""
+    if request.method == 'POST' and 'transport' in details and 'low' in details and 'high' in details and 'start' in details and 'end' in details:
+        transport = details['transport']
+        low = details['low']
+        high = details['high']
+        start = details['start']
+        end = details['end']
+        if len(transport) == 0 or len(low) == 0 or len(high) == 0 or len(start) == 0 or len(end) == 0:
+            msg = "Enter all values!"
+        else:
+            idd = session['user_id']
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute("SELECT * FROM information WHERE start_pos = %s AND destination = %s AND user_id = %s", (start, end, idd,))
+            account = cur.fetchone()
+            if account:
+                cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                cur.execute("SELECT * FROM mediums m, information i WHERE m.information_id = i.information_id AND transport = %s", (transport,))
+                account = cur.fetchone()
+                if account:
+                    msg = "You have already added this transport for this information!"
+                else:
+                    cur = mysql.connection.cursor()
+                    cur.execute("INSERT INTO mediums VALUES (NULL, %s, %s, %s, %s)", (transport, low, high, account['information_id']))
+                    mysql.connection.commit()
+                    cur.close()
+                    msg = "Your valuable information is added to our database!"
+            else:
+                zero = 0
+                cur = mysql.connection.cursor()
+                cur.execute("INSERT INTO information VALUES (NULL, %s, %s, %s, %s, %s, %s)", (start, end, zero, zero, zero, session['user_id']))
+                mysql.connection.commit()
+                cur.close()
+                cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                cur.execute("SELECT * FROM information WHERE user_id = %s ORDER BY information_id DESC", (idd,))
+                mx = cur.fetchone()
+                cur = mysql.connection.cursor()
+                cur.execute("INSERT INTO mediums VALUES (NULL, %s, %s, %s, %s)", (transport, low, high, mx['information_id']))
+                mysql.connection.commit()
+                cur.close()
+                msg = "Your valuable information is added to our database!"
+    return render_template('contribute.html', msg=msg)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
