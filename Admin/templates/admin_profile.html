@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kemne jabo! Admin Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_style.css') }}">
+</head>
+
+<body>
+    <div class=" navbar" id="bg-dark">
+        <a href="/admin_profile"><img src="{{ url_for('static', filename='image5.png') }}" alt="logo" height="100px" class="logo"></a>
+        <nav>
+            <ul>
+                <li><a href="/admin_logout">Log out</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="profile">
+        <h1>Messages</h1>
+        <h2> {{ msg }} </h2>
+        <div class="msg-box">
+            <ul>
+                {% for acc in account %}
+                    <li><a href="/feedback/{{ acc['report_id'] }}"> {{ acc['message'] }} </a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+
+<footer id="main-footer">
+    <p>kemne jabo! &copy; 2021 All rights reserved</p>
+</footer>
+
+</html>

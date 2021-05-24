@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kemne jabo! Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_style.css') }}">
+</head>
+
+<body>
+    <div class=" navbar" id="bg-dark">
+        <a href="/"><img src="{{ url_for('static', filename='image5.png') }}" alt="logo" height="100px" class="logo"></a>
+    </div>
+    <div id="login-bg">
+        <form class=" lobox" action="{{ url_for('index') }}" method="POST">
+            <span class="msg hidden"></span>
+                <h2> {{ msg }} </h2>
+            </span>
+            <h1>
+                Admin Log in
+            </h1>
+            <br>
+            <input type="password" name="Password" placeholder="Enter Password" id="password">
+            <button onclick="myfunct()" type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+
+</body>
+
+<footer id="main-footer">
+    <p>kemne jabo! &copy; 2021 All rights reserved</p>
+</footer>
+
+<script src="{{ url_for('static', filename='project_admin.js') }}"></script>
+
+</html>
