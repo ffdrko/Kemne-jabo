@@ -24,15 +24,22 @@
         </nav>
     </div>
     <div id="forgot-bg">
-        <form id="security" class="sobox" action="{{ url_for('forgotpw') }}" method="POST">
+        <form id="security" class="sobox" action="/recover/{{ idd }}" method="POST">
             <span class="msg hidden"></span>
             <h2 >{{ msg }}</h2>
             </span>
             <h1>
                 Forgot your password?
             </h1>
-            <input type="text" name="Email" placeholder="Enter your Email" id="username"> &nbsp; &nbsp;
-            <button onclick="myfunct2()" type="submit" class="btn">Enter</button>
+            <p>Your Email id is: {{ email }} </p>
+            <p>Your security question is: {{ ques }} </p>
+            <p>Your hint is: {{ hint }} </p>
+            <input type="text" name="answer" placeholder="Enter your answer" id="answer"> &nbsp;&nbsp;
+            <h1>Change your Password</h1>
+            <input type="password" name="Password" placeholder="Enter Password" id="Password"> &nbsp;&nbsp;
+            <input type="password" name="Confirm" placeholder="Confirm Password" id="Confirm">&nbsp;&nbsp;
+            <br><br><br>
+            <button onclick="myfunct2()" type="submit" class="btn">Submit</button>
         </form>
     </div>
 </body>
