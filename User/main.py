@@ -114,12 +114,15 @@ def profile():
         name = '    ' + account['first_name'] + ' ' + account['last_name']
         email = '    ' + account['email']
         phone = '    ' + account['phone']
-        address = '    ' + 'House: ' + account['house'] + ', Street: ' + account['street'] + ', ' + account[
+        address = '    ' + 'House - ' + account['house'] + ', Street - ' + account['street'] + ', ' + account[
             'thana'] + ', ' + account['district'] + ', ' + account['postal_code'] + '.'
         point = '    ' + str(account['points'])
         balance = '    ' + str(account['money'])
+        withdraw = "No"
+        if account['can_withdraw'] == 1:
+            withdraw = "Yes"
         return render_template('profile.html', who=who, name=name, email=email, phone=phone, address=address,
-                               point=point, balance=balance)
+                               point=point, balance=balance, withdraw=withdraw)
     return render_template('profile.html')
 
 
@@ -144,7 +147,7 @@ def faq():
 def contact():
     details = request.form
     msg = ""
-    if request.method == "POST":
+    if request.method == "POST" and 'name' in details and 'email' in details and 'message' in details:
         name = details['name']
         email = details['email']
         message = details['message']
@@ -174,7 +177,7 @@ def contact():
 def report():
     details = request.form
     msg = ""
-    if request.method == "POST":
+    if request.method == "POST" and 'name' in details and 'email' in details and 'message' in details:
         name = details['name']
         email = details['email']
         message = details['message']
@@ -204,7 +207,7 @@ def report():
 def forgotpw():
     details = request.form
     msg = ""
-    if request.method == 'POST':
+    if request.method == 'POST' and 'Email' in details:
         email = details['Email']
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cur.execute("SELECT * FROM users WHERE email = %s", (email,))
@@ -229,7 +232,7 @@ def recover(idd):
     ans1 = account['answer']
     hint = '    ' + account['hint'] + '.'
     ppw = account['pass']
-    if request.method == 'POST':
+    if request.method == 'POST' and 'answer' in details and 'Password' in details and 'Confirm' in details:
         ans2 = details['answer']
         pw = details['Password']
         cpw = details['Confirm']
@@ -249,7 +252,7 @@ def recover(idd):
                     msg = 'New password cannot be same as previous password. Try again!'
                 else:
                     cur = mysql.connection.cursor()
-                    cur.execute("UPDATE users SET pass = %s WHERE user_id = %s", (pw, idd,))
+                    cur.execute("UPDATE users SET pass = %s WHERE user_id = %s;", (pw, idd,))
                     mysql.connection.commit()
                     cur.close()
                     msg = 'Password changed successfully. You can now login!'
@@ -304,6 +307,86 @@ def contribute():
                 cur.close()
                 msg = "Your valuable information is added to our database!"
     return render_template('contribute.html', msg=msg)
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    details = request.form
+    msg = ""
+    if request.method == 'POST' and 'start' in details and 'end' in details:
+        start = details['start']
+        end = details['end']
+        if len(start) == 0 or len(end) == 0:
+            msg = "Enter both values!"
+            return render_template('search.html', msg=msg)
+        return redirect(url_for('info', start=start, end=end))
+    return render_template('search.html', msg=msg)
+
+
+@app.route('/info/<start>/<end>', methods=['GET', 'POST'])
+def info(start, end):
+    zero = 0
+    one = 1
+    idd = session['user_id']
+    msg = ""
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT * FROM information i, mediums m, users u WHERE i.start_pos = %s AND i.destination = %s AND i.information_id = m.information_id AND u.user_id = i.user_id", (start, end,))
+    account = cur.fetchall()
+    cur.execute("SELECT * FROM information WHERE start_pos = %s", (start,))
+    account1 = cur.fetchall()
+    cur.execute("SELECT * FROM information WHERE destination = %s", (end,))
+    account2 = cur.fetchall()
+    if not account and not account1 and not account2:
+        msg = 'No information available!'
+    elif not account and account1 and account2:
+        cur.execute("SELECT * FROM information i, mediums m, users u WHERE u.user_id = i.user_id AND m.information_id = i.information_id AND i.start_pos = %s AND i.destination IN (SELECT start_pos FROM information WHERE destination = %s)", (start, end,))
+        account1 = cur.fetchall()
+        cur.execute("SELECT * FROM information i, mediums m, users u WHERE u.user_id = i.user_id AND m.information_id = i.information_id AND i.destination = %s AND i.start_pos IN (SELECT destination FROM information WHERE start_pos = %s)", (end, start))
+        account2 = cur.fetchall()
+        account = sum((account1, account2), ())
+        if not account:
+            msg = 'No information available!'
+    if request.method == 'POST':
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute("SELECT * FROM information WHERE start_pos = %s AND destination = %s AND on_query = %s", (start, end, one,))
+        acc = cur.fetchone()
+        if acc:
+            cur.execute("SELECT * FROM taken_by WHERE information_id = %s AND user_id = %s", (acc['information_id'], idd,))
+            ac = cur.fetchone()
+            if not ac:
+                cur = mysql.connection.cursor()
+                cur.execute("INSERT INTO taken_by VALUES (NULL, %s, %s, %s)", (zero, acc['information_id'], idd,))
+                mysql.connection.commit()
+                cur.close()
+            msg = 'This information is already on query. Please keep an eye on notifications to see if it is answered by any guide!'
+        else:
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO information VALUES (NULL, %s, %s, %s, %s, %s, %s)", (start, end, zero, zero, one, one))
+            mysql.connection.commit()
+            cur.close()
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO taken_by VALUES (NULL, %s, %s, %s)", (zero, acc['information_id'], idd,))
+            mysql.connection.commit()
+            cur.close()
+            msg = 'Added to query. Please keep an eye on notifications to see if it is answered by any guide!'
+    elif request.method == 'GET':
+        for ac in account:
+            if ac['user_id'] != idd:
+                cur.execute("SELECT * FROM users WHERE user_id = %s", (ac['user_id'],))
+                temp = cur.fetchone()
+                point = temp['points'] + 10
+                money = point * 0.01
+                cur = mysql.connection.cursor()
+                cur.execute("UPDATE users SET points = %s, money = %s WHERE user_id = %s;",
+                            (point, money, temp['user_id'],))
+                mysql.connection.commit()
+                cur.close()
+                if point >= 10000:
+                    cur = mysql.connection.cursor()
+                    cur.execute("UPDATE users SET can_withdraw = %s WHERE user_id = %s;", (one, temp['user_id'],))
+                    mysql.connection.commit()
+                    cur.close()
+    return render_template('info.html', msg=msg, start=start, end=end, account=account)
 
 
 if __name__ == '__main__':

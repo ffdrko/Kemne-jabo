@@ -261,7 +261,7 @@
     padding-top: 40px;
   }
 
-  .sobox h2, .lobox h2, #contact-form h2 {
+  .sobox h2, .lobox h2, #contact-form h2, faq-bg h2 {
     text-shadow: 2px 2px 5px red;
     padding: 5px;
     color: aliceblue;
@@ -470,13 +470,20 @@
     font-size: 20px;
   }
 
-  #query {
+  .query {
     padding: 20px;
   }
 
   .inf {
-    width: 70%;
+    width: 85%;
     border: 2px solid #333;
+    background: #90a9ce;
+    padding: 40px 80px;
+  }
+
+  .info-box {
+    font-size: 20px;
+    padding: 20px;
   }
 
   #search-bg .kom {

@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS mediums
 CREATE TABLE IF NOT EXISTS taken_by
 (
 	search_id 			BIGINT PRIMARY KEY AUTO_INCREMENT,
-    is_useful 			BOOLEAN DEFAULT 0,
+    is_ans	 			BOOLEAN DEFAULT 0,
     information_id 		BIGINT NOT NULL,
 						FOREIGN KEY fk_info (information_id)
 						REFERENCES information (information_id)
